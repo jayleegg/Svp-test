@@ -11,28 +11,27 @@
 
   <style>
     body {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       padding: 16px;
-      margin:0;
-      background: linear-gradient(180deg,#f7f9ff,#e8f3ff);
+      margin: 0;
+      background: linear-gradient(180deg, #f7f9ff, #e8f3ff);
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
     }
 
     /* 모바일 반응형 SVG */
     svg {
       width: 100%;
-      max-width: 420px;
-      display: block;
-      aspect-ratio: 420 / 360;
       height: auto;
+      max-width: 420px;
+      margin-top: 50px;
     }
 
+    /* 나비 날개 */
     .wing {
-      transform-origin: 50% 60%;
-      transform-box: fill-box;
+      transform-origin: 50% 50%; /* 날개 중심을 몸통에 맞추기 */
       animation: flap 1.2s ease-in-out infinite;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
     }
@@ -46,7 +45,7 @@
     }
 
     .body { fill: #2b2b2b; }
-    .spot { fill: rgba(255,255,255,0.92); opacity:0.9; }
+    .spot { fill: rgba(255,255,255,0.92); opacity: 0.9; }
 
     svg:hover .wing { animation-duration: 0.9s; }
     svg:hover { transform: scale(1.03); transition: transform .2s ease; }
