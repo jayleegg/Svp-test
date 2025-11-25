@@ -1,1 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나비 앱</title>
 
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffffff">
+
+  <style>
+    body {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding: 16px;
+      margin:0;
+      background: linear-gradient(180deg,#f7f9ff,#e8f3ff);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    }
+
+    /* 모바일 반응형 SVG */
+    svg {
+      width: 100%;
+      height: auto;
+      max-width: 420px;
+    }
+
+    .wing {
+      transform-origin: 50% 60%;
+      transform-box: fill-box;
+      animation: flap 1.2s ease-in-out infinite;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+    }
+    .wing.left { animation-delay: -0.6s; }
+
+    @keyframes flap {
+      0%   { transform: rotate(0deg) translateY(0); }
+      40%  { transform: rotate(-18deg) translateY(-2px); }
+      60%  { transform: rotate(12deg) translateY(0); }
+      100% { transform: rotate(0deg) translateY(0); }
+    }
+
+    .body { fill: #2b2b2b; }
+    .spot { fill: rgba(255,255,255,0.92); opacity:0.9; }
+
+    svg:hover .wing { animation-duration: 0.9s; }
+    svg:hover { transform: scale(1.03); transition: transform .2s ease; }
+  </style>
+</head>
+
+<body>
+  <svg viewBox="0 0 420 360" role="img" aria-label="나비 애니메이션">
+    <defs>
+      <linearGradient id="wingGrad" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#ff8fb3"/>
+        <stop offset="60%" stop-color="#ffdf8f"/>
+        <stop offset="100%" stop-color="#ffd6ff"/>
+      </linearGradient>
+    </defs>
+
+    <!-- 오른쪽 윗날개 -->
+    <g class="wing right" transform="translate(210,170)">
+      <path d="M0,0 C90,-80 170,-40 210,10 C170,70 90,90 0,40 Z"
+            fill="url(#wingGrad)" stroke="#d6649a" stroke-width="2" />
+      <ellipse class="spot" cx="110" cy="-8" rx="18" ry="12" transform="rotate(-18 110 -8)"/>
+      <ellipse class="spot" cx="150" cy="18" rx="12" ry="8" transform="rotate(-8 150 18)"/>
+    </g>
+
+    <!-- 오른쪽 아랫날개 -->
+    <g class="wing right" transform="translate(210,170)">
+      <path d="M0,40 C80,100 160,90 220,70 C160,110 80,120 0,80 Z"
+            fill="#ffb4d1" stroke="#d6649a" stroke-width="2" opacity="0.95"/>
+      <circle class="spot" cx="120" cy="82" r="10"/>
+      <circle class="spot" cx="70" cy="70" r="7" />
+    </g>
+
+    <!-- 왼쪽 날개(반전) -->
+    <g class="wing left" transform="translate(210,170) scale(-1,1)">
+      <path d="M0,0 C90,-80 170,-40 210,10 C170,70 90,90 0,40 Z"
+            fill="url(#wingGrad)" stroke="#d6649a" stroke-width="2" />
+      <ellipse class="spot" cx="110" cy="-8" rx="18" ry="12" transform="rotate(-18 110 -8)"/>
+      <ellipse class="spot" cx="150" cy="18" rx="12" ry="8" transform="rotate(-8 150 18)"/>
+    </g>
+
+    <g class="wing left" transform="translate(210,170) scale(-1,1)">
+      <path d="M0,40 C80,100 160,90 220,70 C160,110 80,120 0,80 Z"
+            fill="#ffb4d1" stroke="#d6649a" stroke-width="2" opacity="0.95"/>
+      <circle class="spot" cx="120" cy="82" r="10"/>
+      <circle class="spot" cx="70" cy="70" r="7" />
+    </g>
+
+    <!-- 몸통 -->
+    <g transform="translate(210,170)">
+      <ellipse class="body" cx="0" cy="12" rx="10" ry="40" />
+      <ellipse class="body" cx="0" cy="-20" rx="8" ry="24" />
+      <path d="M-2,-44 C-18,-70 -30,-90 -44,-106"
+            stroke="#2b2b2b" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M2,-44 C18,-70 30,-90 44,-106"
+            stroke="#2b2b2b" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="-4" cy="-10" r="2.2" fill="#fff"/>
+      <circle cx="4" cy="-10" r="2.2" fill="#fff"/>
+    </g>
+  </svg>
+
+  <!-- Service Worker 등록 -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
+</body>
+</html>
